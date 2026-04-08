@@ -1,7 +1,7 @@
 {
   "name": "newsletter-toolkit",
   "version": "1.0.0",
-  "description": "Skills para gerar newsletters semanais com pesquisa automatizada, adaptação de conteúdo e humanização de texto. Inclui digest semanal, adaptação de artigos para blog e remoção de padrões de IA.",
+  "description": "Skills para gerar newsletters semanais de analytics/martech com pesquisa automatizada, publicação multi-CMS e humanização calibrada por voz.",
   "author": {
     "name": "Lucian Fialho",
     "url": "https://lucianfialho.com"
@@ -12,49 +12,49 @@
   "userConfig": {
     "serper_api_key": {
       "title": "Serper API Key",
-      "description": "Chave da API Serper para buscas de notícias (obtenha grátis em serper.dev)",
+      "description": "Chave da API Serper para buscar notícias (ex: Meta Ads). Cadastro gratuito em serper.dev — plano free inclui 2.500 buscas/mês. Após cadastrar, copie a API key do dashboard.",
       "type": "string",
       "sensitive": true
     },
     "newsletter_feed_url": {
       "title": "Newsletter RSS Feed URL",
-      "description": "URL do RSS feed da sua newsletter para evitar conteúdo duplicado (ex: https://suanewsletter.substack.com/feed)",
+      "description": "URL do RSS feed da sua newsletter. Usado para evitar repetir temas já cobertos. Substack: https://SEU-USUARIO.substack.com/feed | Ghost: https://SEU-BLOG.com/rss/ | Pode deixar em branco e configurar depois.",
       "type": "string",
       "sensitive": false
     },
     "podcast_feed_url": {
-      "title": "Podcast RSS Feed URL",
-      "description": "URL do RSS feed do seu podcast para mencionar episódios relevantes no digest (opcional)",
+      "title": "Podcast RSS Feed URL (opcional)",
+      "description": "URL do RSS feed do seu podcast. Quando configurado, o digest menciona episódios relacionados aos temas da semana. Anchor/Spotify: https://anchor.fm/s/SEU-ID/podcast/rss | Pode deixar em branco.",
       "type": "string",
       "sensitive": false
     },
     "blog_feed_url": {
-      "title": "Blog RSS Feed URL",
-      "description": "URL do RSS feed do seu blog para mencionar artigos relacionados (opcional)",
+      "title": "Blog RSS Feed URL (opcional)",
+      "description": "URL do RSS feed do seu blog. Usado para mencionar artigos relacionados no digest. Geralmente: https://SEU-BLOG.com/feed.xml ou /rss.xml | Pode deixar em branco.",
       "type": "string",
       "sensitive": false
     },
     "cms_type": {
-      "title": "CMS Type",
-      "description": "Sistema de publicação para artigos adaptados: strapi, wordpress, ou none (salva como arquivo local)",
+      "title": "CMS para publicação de artigos",
+      "description": "Sistema onde artigos adaptados pelo blog-post são publicados. Opções: 'strapi' (Strapi v4/v5), 'wordpress' (WordPress com REST API), 'none' (salva como arquivo .md local). Digite: strapi | wordpress | none",
       "type": "string",
       "sensitive": false
     },
     "cms_endpoint": {
       "title": "CMS API Endpoint",
-      "description": "URL da API do CMS (ex: https://api.seublog.com.br/api/articles para Strapi, https://seublog.com para WordPress)",
+      "description": "URL base da API do CMS. Strapi: https://api.SEU-STRAPI.com/api/articles | WordPress: https://SEU-BLOG.com (sem /wp-json, o plugin adiciona automaticamente). Deixe em branco se cms_type for 'none'.",
       "type": "string",
       "sensitive": false
     },
     "cms_auth_token": {
       "title": "CMS Auth Token",
-      "description": "Token de autenticação Bearer do CMS",
+      "description": "Token de autenticação do CMS. Strapi: API Token com permissão de create em articles (Settings → API Tokens). WordPress: usuario:senha-de-aplicativo (Usuários → Perfil → Senhas de aplicativo). Deixe em branco se cms_type for 'none'.",
       "type": "string",
       "sensitive": true
     },
     "output_dir": {
-      "title": "Output Directory",
-      "description": "Diretório para salvar os newsletters gerados (deixe em branco para usar o diretório padrão do plugin)",
+      "title": "Diretório de saída (opcional)",
+      "description": "Pasta onde os digests gerados são salvos. Deixe em branco para usar o padrão (~/.claude/plugins/data/newsletter-toolkit/newsletters/). Use caminho absoluto se quiser salvar em outro lugar.",
       "type": "directory",
       "sensitive": false
     }
