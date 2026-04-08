@@ -1,0 +1,23 @@
+{
+  "name": "newsletter-toolkit",
+  "owner": {
+    "name": "Lucian Fialho",
+    "email": "lucian@metricasboss.com.br"
+  },
+  "metadata": {
+    "description": "Skills para gerar newsletters semanais de analytics/martech com pesquisa automatizada, publicação multi-CMS e humanização calibrada por voz.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "newsletter-toolkit",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/lucianfialho/newsletter-toolkit.git"
+      },
+      "description": "Digest semanal automatizado (GA4, GTM, BigQuery, Looker Studio, Meta Ads), adaptação de artigos para blog multi-CMS, humanização de texto e lab notes com métricas reais.",
+      "version": "1.0.0",
+      "strict": false
+    }
+  ]
+}
