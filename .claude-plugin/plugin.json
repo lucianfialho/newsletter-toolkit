@@ -1,0 +1,46 @@
+{
+  "name": "newsletter-toolkit",
+  "version": "1.0.0",
+  "description": "Skills para gerar newsletters semanais com pesquisa automatizada, adaptação de conteúdo e humanização de texto. Inclui digest semanal, adaptação de artigos para blog e remoção de padrões de IA.",
+  "author": {
+    "name": "Lucian Fialho",
+    "url": "https://lucianfialho.com"
+  },
+  "repository": "https://github.com/lucianfialho/newsletter-toolkit",
+  "license": "MIT",
+  "keywords": ["newsletter", "digest", "analytics", "content", "humanizer", "blog"],
+  "userConfig": {
+    "serper_api_key": {
+      "description": "Serper API key para buscas de notícias (obtenha em serper.dev)",
+      "sensitive": true
+    },
+    "newsletter_feed_url": {
+      "description": "URL do RSS feed da sua newsletter para anti-duplicação (ex: https://suanewsletter.substack.com/feed)",
+      "sensitive": false
+    },
+    "podcast_feed_url": {
+      "description": "URL do RSS feed do seu podcast para mencionar episódios relevantes (opcional)",
+      "sensitive": false
+    },
+    "blog_feed_url": {
+      "description": "URL do RSS feed do seu blog para mencionar artigos relacionados (opcional)",
+      "sensitive": false
+    },
+    "cms_type": {
+      "description": "CMS para publicação de artigos adaptados: strapi, wordpress, ou none (salva localmente)",
+      "sensitive": false
+    },
+    "cms_endpoint": {
+      "description": "URL da API do CMS (ex: https://api.seublog.com.br/api/articles para Strapi)",
+      "sensitive": false
+    },
+    "cms_auth_token": {
+      "description": "Token de autenticação Bearer do CMS",
+      "sensitive": true
+    },
+    "output_dir": {
+      "description": "Diretório para salvar os outputs da newsletter (padrão: ./output)",
+      "sensitive": false
+    }
+  }
+}

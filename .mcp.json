@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "newsletter-mcp": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/servers/mcp-server/index.js"],
+      "env": {
+        "SERPER_API_KEY": "${user_config.serper_api_key}",
+        "DEBUG": "false"
+      }
+    }
+  }
+}

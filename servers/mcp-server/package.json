@@ -1,0 +1,13 @@
+{
+  "name": "newsletter-mcp",
+  "version": "1.0.0",
+  "description": "MCP server bundled with newsletter-toolkit plugin",
+  "type": "module",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "cheerio": "^1.0.0-rc.12",
+    "rss-parser": "^3.13.0"
+  }
+}
