@@ -6,6 +6,7 @@ A Claude Code plugin for generating weekly analytics/martech newsletters with au
 
 | Skill | Command | Description |
 |-------|---------|-------------|
+| `setup` | `/newsletter-toolkit:setup` | Validate configuration, test Serper and CMS connections, show what's missing |
 | `digest` | `/newsletter-toolkit:digest` | Generate weekly digest with automated research across GA4, GTM, BigQuery, Looker Studio, and Meta Ads |
 | `blog-post` | `/newsletter-toolkit:blog-post <URL>` | Adapt an English article to PT-BR and publish to your CMS |
 | `humanizer` | `/newsletter-toolkit:humanizer` | Remove AI writing patterns and calibrate tone to match past editions |
@@ -20,6 +21,20 @@ A Claude Code plugin for generating weekly analytics/martech newsletters with au
 
 ```bash
 /plugin install newsletter-toolkit
+```
+
+After installation, validate your setup:
+
+```
+/newsletter-toolkit:setup
+```
+
+This checks all config values, tests Serper and CMS connectivity, verifies Node.js and MCP server dependencies, and lists exactly what needs to be fixed.
+
+To update any config value after installation:
+
+```
+/plugin configure newsletter-toolkit
 ```
 
 During installation you'll be prompted for:
