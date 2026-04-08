@@ -89,3 +89,113 @@ Escrever em `${CLAUDE_PLUGIN_DATA}/runs/YYYY-MM-DD/state.json`:
 ```
 
 → Continuar para MOMENTO 2.
+
+## MOMENTO 2 — EXECUTION
+
+### FASE 1: RESEARCH (paralelo)
+
+Spawnar os 5 pesquisadores em paralelo via Task, passando o input JSON:
+
+```
+Task(ga4-researcher,
+  prompt: '{"date":"YYYY-MM-DD","lookback_days":7,"exclusions":[<da state>],"run_dir":"${CLAUDE_PLUGIN_DATA}/runs/YYYY-MM-DD"}',
+  run_in_background: true)
+
+Task(gtm-researcher,
+  prompt: '{"date":"YYYY-MM-DD","lookback_days":7,"exclusions":[<da state>],"run_dir":"${CLAUDE_PLUGIN_DATA}/runs/YYYY-MM-DD"}',
+  run_in_background: true)
+
+Task(bigquery-researcher,
+  prompt: '{"date":"YYYY-MM-DD","lookback_days":7,"exclusions":[<da state>],"run_dir":"${CLAUDE_PLUGIN_DATA}/runs/YYYY-MM-DD"}',
+  run_in_background: true)
+
+Task(looker-researcher,
+  prompt: '{"date":"YYYY-MM-DD","lookback_days":7,"exclusions":[<da state>],"run_dir":"${CLAUDE_PLUGIN_DATA}/runs/YYYY-MM-DD"}',
+  run_in_background: true)
+
+Task(meta-researcher,
+  prompt: '{"date":"YYYY-MM-DD","lookback_days":7,"exclusions":[<da state>],"run_dir":"${CLAUDE_PLUGIN_DATA}/runs/YYYY-MM-DD"}',
+  run_in_background: true)
+```
+
+Aguardar todos completarem. Verificar que cada arquivo existe:
+```bash
+ls ${CLAUDE_PLUGIN_DATA}/runs/YYYY-MM-DD/research-*.json
+```
+
+Atualizar `results.research.*` em state.json com `"done"` para cada pesquisador que completou.
+
+---
+
+### FASE 2: AGGREGATE
+
+Ler cada arquivo de resultado:
+```bash
+cat ${CLAUDE_PLUGIN_DATA}/runs/YYYY-MM-DD/research-ga4.json
+cat ${CLAUDE_PLUGIN_DATA}/runs/YYYY-MM-DD/research-gtm.json
+cat ${CLAUDE_PLUGIN_DATA}/runs/YYYY-MM-DD/research-bigquery.json
+cat ${CLAUDE_PLUGIN_DATA}/runs/YYYY-MM-DD/research-looker.json
+cat ${CLAUDE_PLUGIN_DATA}/runs/YYYY-MM-DD/research-meta.json
+```
+
+**Verificar nothing_new total:**
+Se TODOS os arquivos têm `nothing_new: true` → pular para FASE 4 com flag `all_quiet: true`.
+
+**Coletar foreign_urls:**
+Para cada update em cada arquivo onde `is_foreign: true`:
+```json
+{ "url": "<url>", "platform": "<platform>", "context": "<summary do update>" }
+```
+
+Atualizar `context.foreign_urls` em state.json com a lista coletada.
+
+---
+
+### FASE 3: BLOG POSTS (paralelo, dinâmico)
+
+Para cada item em `context.foreign_urls[]`:
+
+1. Calcular hash: primeiros 8 chars do SHA-256 da URL
+   ```bash
+   echo -n "URL" | sha256sum | cut -c1-8
+   ```
+
+2. Verificar se já existe `${CLAUDE_PLUGIN_DATA}/runs/YYYY-MM-DD/blog-post-{hash}.json`
+   - Se sim → pular (recovery)
+
+3. Spawnar Agent inline com as instruções de adaptação:
+
+```
+Agent(prompt: "
+Adapta este artigo para PT-BR e publica no CMS configurado.
+
+INPUT:
+- url: {url}
+- platform: {platform}
+- newsletter_context: {context}
+- cms_type: ${user_config.cms_type}
+- cms_endpoint: ${user_config.cms_endpoint}
+- cms_auth_token: ${user_config.cms_auth_token}
+- output_file: ${CLAUDE_PLUGIN_DATA}/runs/YYYY-MM-DD/blog-post-{hash}.json
+
+TAREFA:
+1. WebFetch da URL para extrair conteúdo
+2. Adaptar para PT-BR (não tradução — adaptação editorial, 400-800 palavras)
+3. Se cms_type = strapi: POST para cms_endpoint com {data:{title,description,content,slug}}
+   Se cms_type = wordpress: POST para cms_endpoint/wp-json/wp/v2/posts com {title,content,excerpt,slug,status:publish}
+   Se cms_type = none: salvar em ${CLAUDE_PLUGIN_DATA}/blog-posts/{slug}.md
+4. Escrever resultado em output_file:
+   {
+     'url': '{url}',
+     'blog_url': '<url publicada ou path local>',
+     'title_ptbr': '<titulo em PT-BR>',
+     'status': 'published' ou 'failed',
+     'error': null ou '<mensagem de erro>'
+   }
+",
+run_in_background: true)
+```
+
+Spawnar todos em paralelo. Aguardar todos completarem.
+
+Atualizar `results.blog_posts` em state.json com `{url: "done"}` para cada URL processada.
