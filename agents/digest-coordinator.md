@@ -199,3 +199,137 @@ run_in_background: true)
 Spawnar todos em paralelo. Aguardar todos completarem.
 
 Atualizar `results.blog_posts` em state.json com `{url: "done"}` para cada URL processada.
+
+---
+
+### FASE 4: GENERATE
+
+Ler todos os arquivos de resultado:
+```bash
+cat ${CLAUDE_PLUGIN_DATA}/runs/YYYY-MM-DD/research-*.json
+cat ${CLAUDE_PLUGIN_DATA}/runs/YYYY-MM-DD/blog-post-*.json 2>/dev/null
+```
+
+**Construir mapa de substituição de URLs:**
+Para cada `blog-post-{hash}.json` onde `status: "published"`:
+- Mapear: `{url original}` → `{blog_url}`
+
+**Se all_quiet: true** (todas plataformas sem updates):
+Gerar digest curto:
+```
+# [Nome do Digest] #XXX
+
+Semana tranquila. [GA4, GTM, BigQuery, Looker Studio e Meta Ads] sem updates relevantes nos últimos 7 dias.
+
+[Fechamento com teaser]
+```
+Pular para FASE 6.
+
+**Caso normal:** Gerar digest completo seguindo a estrutura do SKILL.md:
+- Abertura (2-4 frases, contexto da semana)
+- "O que rolou essa semana" (bullets de 1 linha)
+- Máximo 2 seções de destaque expandidas
+- Drops (itens menores)
+- Fechamento
+
+Para cada link no texto: substituir URL original pelo blog_url quando disponível no mapa de substituição.
+
+Escrever rascunho em `${CLAUDE_PLUGIN_DATA}/runs/YYYY-MM-DD/digest-draft.json`:
+```json
+{ "content": "<texto completo do digest em markdown>" }
+```
+
+Atualizar `results.digest_draft: "done"` em state.json.
+
+---
+
+### FASE 5: HUMANIZE
+
+Ler voice profile:
+```bash
+cat ${CLAUDE_PLUGIN_DATA}/voice-profile.json 2>/dev/null
+```
+
+Se não existir, tentar gerar:
+```bash
+build-voice-profile 2>/dev/null || true
+```
+
+Ler rascunho:
+```bash
+cat ${CLAUDE_PLUGIN_DATA}/runs/YYYY-MM-DD/digest-draft.json
+```
+
+Aplicar humanização (mesmas regras do skill humanizer):
+- Eliminar padrões de IA: inflação de importância, vocabulário IA, gerundismo decorativo, regra de três forçada
+- Calibrar tom pelo voice profile se disponível
+- Preservar todos os fatos, datas, nomes de features e links
+
+Atualizar state.json com `results.digest_final: "<texto humanizado>"`.
+
+---
+
+### FASE 6: SAVE
+
+Determinar output path:
+- Se `${user_config.output_dir}` configurado: `${user_config.output_dir}/digest-YYYY-MM-DD.md`
+- Senão: `${CLAUDE_PLUGIN_DATA}/newsletters/digest-YYYY-MM-DD.md`
+
+```bash
+mkdir -p <output_dir>
+```
+
+Escrever arquivo final com o conteúdo de `results.digest_final`.
+
+Escrever na knowledge base:
+```bash
+mkdir -p ${CLAUDE_PLUGIN_DATA}/newsletters
+```
+Salvar cópia em `${CLAUDE_PLUGIN_DATA}/newsletters/digest-YYYY-MM-DD.md`.
+
+Atualizar state.json:
+```json
+{
+  "status": "completed",
+  "results": {
+    "output_path": "<path do arquivo salvo>"
+  }
+}
+```
+
+**Run retention:** Manter apenas os 10 runs mais recentes.
+```bash
+ls -t ${CLAUDE_PLUGIN_DATA}/runs/ | tail -n +11 | xargs -I{} rm -rf ${CLAUDE_PLUGIN_DATA}/runs/{}
+```
+
+Retornar ao usuário:
+```
+Digest gerado: <output_path>
+Edição: #XXX
+Highlights: [lista dos 2-3 principais updates]
+```
+
+---
+
+## MOMENTO 3 — RECOVERY
+
+Ativado quando `state.json` existe com `status: "executing"`.
+
+```bash
+cat ${CLAUDE_PLUGIN_DATA}/runs/YYYY-MM-DD/state.json
+```
+
+Lógica de retomada:
+- `results.research.*` com algum `null` → re-executar FASE 1 apenas para pesquisadores com resultado null
+- Todos research done, `context.foreign_urls` vazio → re-executar FASE 2
+- `results.blog_posts` incompleto → re-executar FASE 3 apenas para URLs ausentes
+- `results.digest_draft` null → re-executar FASE 4
+- `results.digest_final` null → re-executar FASE 5
+- `results.output_path` null → re-executar FASE 6
+
+## REGRAS CRÍTICAS
+
+- NUNCA re-executar uma fase onde o resultado já está preenchido
+- SEMPRE atualizar state.json ao completar cada fase
+- Em caso de falha de um blog-post agent: registrar `status: "failed"` e usar URL original no digest
+- Se all_quiet + no podcast/blog → digest curto é válido, não forçar conteúdo
