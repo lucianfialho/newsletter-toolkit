@@ -19,9 +19,13 @@ A Claude Code plugin for generating weekly analytics/martech newsletters with au
 
 ## Installation
 
-```bash
-/plugin install newsletter-toolkit
+Install directly from this repository using Claude Code:
+
 ```
+/plugin install github:lucianfialho/newsletter-toolkit
+```
+
+You'll be prompted to configure each option (API keys, RSS feeds, CMS settings) during installation.
 
 After installation, validate your setup:
 
