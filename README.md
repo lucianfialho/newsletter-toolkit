@@ -19,34 +19,38 @@ A Claude Code plugin for generating weekly analytics/martech newsletters with au
 
 ## Installation
 
-Run the installer (clones the repo, installs deps, prints the Claude Code command):
+Run the installer (clones the repo and installs MCP server dependencies):
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/lucianfialho/newsletter-toolkit/main/install.sh | bash
 ```
 
-Then copy the `/plugin install` command it prints and run it inside Claude Code.
+Then start Claude Code pointing to the plugin directory:
+
+```bash
+claude --plugin-dir ~/.claude-plugins/newsletter-toolkit
+```
 
 **Custom install path:**
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/lucianfialho/newsletter-toolkit/main/install.sh | bash -s ~/my-plugins/newsletter-toolkit
+claude --plugin-dir ~/my-plugins/newsletter-toolkit
 ```
 
-**Manual install (alternative):**
+**Manual install:**
 
 ```bash
 git clone https://github.com/lucianfialho/newsletter-toolkit ~/.claude-plugins/newsletter-toolkit
 cd ~/.claude-plugins/newsletter-toolkit/servers/mcp-server && npm install
+claude --plugin-dir ~/.claude-plugins/newsletter-toolkit
 ```
 
-Then in Claude Code:
+On first run you'll be prompted to configure each option (Serper API key, RSS feeds, CMS settings). To update config later:
 
 ```
-/plugin install ~/.claude-plugins/newsletter-toolkit
+/plugin configure newsletter-toolkit
 ```
-
-You'll be prompted to configure each option (API keys, RSS feeds, CMS settings) during installation.
 
 After installation, validate your setup:
 
