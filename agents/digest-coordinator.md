@@ -80,6 +80,7 @@ Escrever em `${CLAUDE_PLUGIN_DATA}/runs/YYYY-MM-DD/state.json`:
   },
   "results": {
     "research":     { "ga4": null, "gtm": null, "bigquery": null, "looker": null, "meta": null },
+    "aggregate":    null,
     "blog_posts":   {},
     "digest_draft": null,
     "digest_final": null,
@@ -148,6 +149,8 @@ Para cada update em cada arquivo onde `is_foreign: true`:
 ```
 
 Atualizar `context.foreign_urls` em state.json com a lista coletada.
+
+Atualizar `results.aggregate: "done"` em state.json.
 
 ---
 
@@ -321,7 +324,7 @@ cat ${CLAUDE_PLUGIN_DATA}/runs/YYYY-MM-DD/state.json
 
 Lógica de retomada:
 - `results.research.*` com algum `null` → re-executar FASE 1 apenas para pesquisadores com resultado null
-- Todos research done, `context.foreign_urls` vazio → re-executar FASE 2
+- `results.aggregate` é `null` → re-executar FASE 2 (independentemente de `context.foreign_urls`)
 - `results.blog_posts` incompleto → re-executar FASE 3 apenas para URLs ausentes
 - `results.digest_draft` null → re-executar FASE 4
 - `results.digest_final` null → re-executar FASE 5

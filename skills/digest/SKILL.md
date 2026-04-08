@@ -91,15 +91,14 @@ Opinião sutil. Link pra fonte no final.]
 
 ## WORKFLOW EXECUTADO PELO COORDINATOR
 
-O coordinator executa 6 fases determinísticas via state file em `${CLAUDE_PLUGIN_DATA}/runs/YYYY-MM-DD/`:
+O coordinator executa 6 fases determinísticas via state file em `${CLAUDE_PLUGIN_DATA}/runs/YYYY-MM-DD/`. O Momento 1 (Planning) cria o state file; as 6 fases de execução seguem em ordem:
 
-1. **Planning** — lê RSS feed, monta `state.json` com contexto dinâmico (exclusions, run_id)
-2. **Research** — 5 pesquisadores em paralelo, cada um escreve em arquivo isolado
-3. **Aggregate** — coleta resultados, identifica fontes estrangeiras (`is_foreign: true`)
-4. **Blog Posts** — adapta fontes estrangeiras para PT-BR e publica no CMS (paralelo, automático)
-5. **Generate** — monta digest substituindo links estrangeiros pelos links do blog
-6. **Humanize** — aplica voice profile e regras anti-IA
-7. **Save** — salva o digest final e limpa runs antigos (mantém últimos 10)
+1. **Research** — 5 pesquisadores em paralelo, cada um escreve em arquivo isolado
+2. **Aggregate** — coleta resultados, identifica fontes estrangeiras (`is_foreign: true`)
+3. **Blog Posts** — adapta fontes estrangeiras para PT-BR e publica no CMS (paralelo, automático)
+4. **Generate** — monta digest substituindo links estrangeiros pelos links do blog
+5. **Humanize** — aplica voice profile e regras anti-IA inline (sem agent separado)
+6. **Save** — salva o digest final e limpa runs antigos (mantém últimos 10)
 
 **Recovery automático:** se a execução for interrompida, o coordinator retoma da fase onde parou usando o `state.json` existente.
 
