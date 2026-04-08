@@ -11,35 +11,51 @@
   "keywords": ["newsletter", "digest", "analytics", "content", "humanizer", "blog"],
   "userConfig": {
     "serper_api_key": {
-      "description": "Serper API key para buscas de notícias (obtenha em serper.dev)",
+      "title": "Serper API Key",
+      "description": "Chave da API Serper para buscas de notícias (obtenha grátis em serper.dev)",
+      "type": "string",
       "sensitive": true
     },
     "newsletter_feed_url": {
-      "description": "URL do RSS feed da sua newsletter para anti-duplicação (ex: https://suanewsletter.substack.com/feed)",
+      "title": "Newsletter RSS Feed URL",
+      "description": "URL do RSS feed da sua newsletter para evitar conteúdo duplicado (ex: https://suanewsletter.substack.com/feed)",
+      "type": "string",
       "sensitive": false
     },
     "podcast_feed_url": {
-      "description": "URL do RSS feed do seu podcast para mencionar episódios relevantes (opcional)",
+      "title": "Podcast RSS Feed URL",
+      "description": "URL do RSS feed do seu podcast para mencionar episódios relevantes no digest (opcional)",
+      "type": "string",
       "sensitive": false
     },
     "blog_feed_url": {
+      "title": "Blog RSS Feed URL",
       "description": "URL do RSS feed do seu blog para mencionar artigos relacionados (opcional)",
+      "type": "string",
       "sensitive": false
     },
     "cms_type": {
-      "description": "CMS para publicação de artigos adaptados: strapi, wordpress, ou none (salva localmente)",
+      "title": "CMS Type",
+      "description": "Sistema de publicação para artigos adaptados: strapi, wordpress, ou none (salva como arquivo local)",
+      "type": "string",
       "sensitive": false
     },
     "cms_endpoint": {
-      "description": "URL da API do CMS (ex: https://api.seublog.com.br/api/articles para Strapi)",
+      "title": "CMS API Endpoint",
+      "description": "URL da API do CMS (ex: https://api.seublog.com.br/api/articles para Strapi, https://seublog.com para WordPress)",
+      "type": "string",
       "sensitive": false
     },
     "cms_auth_token": {
+      "title": "CMS Auth Token",
       "description": "Token de autenticação Bearer do CMS",
+      "type": "string",
       "sensitive": true
     },
     "output_dir": {
-      "description": "Diretório para salvar os outputs da newsletter (padrão: ./output)",
+      "title": "Output Directory",
+      "description": "Diretório para salvar os newsletters gerados (deixe em branco para usar o diretório padrão do plugin)",
+      "type": "directory",
       "sensitive": false
     }
   }
