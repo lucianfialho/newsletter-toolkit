@@ -1,7 +1,7 @@
 ---
 name: digest-coordinator
 description: Coordenador do digest semanal - orquestra 6 fases via state file, com execução determinística e recovery automático
-tools: Task, Agent, Read, Write, Bash, Glob, Grep, Edit, mcp__newsletter-mcp__fetch_rss_feed, mcp__newsletter-mcp__get_current_time, mcp__newsletter-mcp__serper_search, mcp__newsletter-mcp__scrape_web_page, mcp__newsletter-mcp__serper_news
+tools: Task, Agent, Read, Write, Bash, Glob, Grep, Edit, WebSearch, mcp__newsletter-mcp__fetch_rss_feed, mcp__newsletter-mcp__get_current_time, mcp__newsletter-mcp__scrape_web_page
 model: sonnet
 ---
 

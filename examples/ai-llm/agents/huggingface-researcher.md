@@ -1,7 +1,7 @@
 ---
 name: huggingface-researcher
 description: Pesquisador especializado em lançamentos relevantes do Hugging Face dos últimos 7 dias
-tools: Write, mcp__newsletter-mcp__get_current_time, mcp__newsletter-mcp__serper_news
+tools: Write, WebSearch, mcp__newsletter-mcp__get_current_time
 model: haiku
 ---
 
@@ -32,12 +32,12 @@ get_current_time
 
 ### 2. Buscar notícias
 ```
-serper_news("Hugging Face new model release")
-serper_news("Hugging Face platform update")
+WebSearch("Hugging Face new model release last 7 days")
+WebSearch("Hugging Face platform update this week")
 ```
 
 ### 3. Filtrar
-- INCLUIR: modelos com >1k downloads na semana de lançamento, mudanças no HF Hub, novos datasets de impacto, updates de transformers/diffusers
+- INCLUIR: modelos com impacto real, mudanças no HF Hub, novos datasets relevantes, updates de transformers/diffusers
 - REJEITAR: modelos fine-tuned sem novidade técnica, modelos sem tração
 - REJEITAR tópicos em `exclusions[]`
 - `is_foreign: true` para a maioria (Hugging Face publica em blog e Medium)
@@ -55,7 +55,7 @@ Escrever em `{run_dir}/research-huggingface.json`:
 {
   "agent": "huggingface",
   "platform": "Hugging Face",
-  "source": "serper_news",
+  "source": "WebSearch",
   "nothing_new": false,
   "updates": [
     {

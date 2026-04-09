@@ -10,8 +10,8 @@ OpenAI, Anthropic, Google AI (Gemini), Mistral, and Hugging Face.
 | `openai-researcher.md` | OpenAI | https://platform.openai.com/docs/changelog |
 | `anthropic-researcher.md` | Anthropic | https://docs.anthropic.com/en/docs/about-claude/models |
 | `google-ai-researcher.md` | Google AI / Gemini | https://ai.google.dev/gemini-api/docs/changelog |
-| `mistral-researcher.md` | Mistral AI | serper_news |
-| `huggingface-researcher.md` | Hugging Face | serper_news |
+| `mistral-researcher.md` | Mistral AI | WebSearch |
+| `huggingface-researcher.md` | Hugging Face | WebSearch |
 
 ## Setup
 
@@ -35,7 +35,6 @@ OpenAI, Anthropic, Google AI (Gemini), Mistral, and Hugging Face.
    ```
    /plugin configure newsletter-toolkit
    → Newsletter Feed URL: https://YOUR-NEWSLETTER.substack.com/feed
-   → Serper API Key: your-key (needed for Mistral and Hugging Face)
    ```
 
 ## Tone guidance

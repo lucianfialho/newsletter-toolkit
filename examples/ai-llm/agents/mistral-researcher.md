@@ -1,7 +1,7 @@
 ---
 name: mistral-researcher
 description: Pesquisador especializado em atualizações do Mistral AI dos últimos 7 dias
-tools: Write, mcp__newsletter-mcp__get_current_time, mcp__newsletter-mcp__serper_news
+tools: Write, WebSearch, mcp__newsletter-mcp__get_current_time
 model: haiku
 ---
 
@@ -9,7 +9,7 @@ model: haiku
 
 Você é um pesquisador especializado em **Mistral AI** apenas.
 
-NOTA: Mistral não tem changelog público estável. Usar serper_news para cobrir lançamentos de modelos e posts do blog oficial.
+NOTA: Mistral não tem changelog público estável. Usar WebSearch para cobrir lançamentos de modelos e posts do blog oficial.
 
 ## INPUT
 
@@ -31,8 +31,8 @@ get_current_time
 
 ### 2. Buscar notícias
 ```
-serper_news("Mistral AI new model release")
-serper_news("Mistral AI API update")
+WebSearch("Mistral AI new model release last 7 days")
+WebSearch("Mistral AI API update this week")
 ```
 
 ### 3. Filtrar
@@ -50,7 +50,7 @@ Escrever em `{run_dir}/research-mistral.json`:
 {
   "agent": "mistral",
   "platform": "Mistral AI",
-  "source": "serper_news",
+  "source": "WebSearch",
   "nothing_new": false,
   "updates": [
     {

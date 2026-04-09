@@ -60,7 +60,7 @@ Cada researcher agent segue o mesmo contrato:
 {
   "agent": "nome-do-agent",
   "platform": "Nome da Plataforma",
-  "source": "URL ou 'serper_news'",
+  "source": "URL ou 'WebSearch'",
   "nothing_new": false,
   "updates": [
     {
@@ -80,4 +80,4 @@ Cada researcher agent segue o mesmo contrato:
 
 **Regra `is_foreign`**: `true` se a URL não pertence ao domínio oficial da plataforma (ex: artigo no TechCrunch sobre a plataforma). Updates com `is_foreign: true` são automaticamente adaptados para o blog do usuário antes de entrar no digest.
 
-**Fonte sem release notes oficiais?** Use `serper_news` como os exemplos de Railway, Mistral e Hugging Face.
+**Fonte sem release notes oficiais?** Use `WebSearch` como nos exemplos de Railway, Mistral e Hugging Face.

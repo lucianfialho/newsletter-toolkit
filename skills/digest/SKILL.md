@@ -17,7 +17,6 @@ Gera o digest semanal de Analytics/Martech.
 
 Antes de rodar, certifique-se de ter configurado via `/plugin configure newsletter-toolkit`:
 - `newsletter_feed_url` — RSS da sua newsletter (para anti-duplicação)
-- `serper_api_key` — para buscar notícias de Meta Ads
 
 ## TOM E ESTILO
 

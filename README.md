@@ -6,7 +6,7 @@ A Claude Code plugin for generating weekly analytics/martech newsletters with au
 
 | Skill | Command | Description |
 |-------|---------|-------------|
-| `setup` | `/newsletter-toolkit:setup` | Validate configuration, test Serper and CMS connections, show what's missing |
+| `setup` | `/newsletter-toolkit:setup` | Validate configuration, test CMS connections, show what's missing |
 | `digest` | `/newsletter-toolkit:digest` | Generate weekly digest with automated research across GA4, GTM, BigQuery, Looker Studio, and Meta Ads |
 | `blog-post` | `/newsletter-toolkit:blog-post <URL>` | Adapt an English article to PT-BR and publish to your CMS |
 | `humanizer` | `/newsletter-toolkit:humanizer` | Remove AI writing patterns and calibrate tone to match past editions |
@@ -15,7 +15,6 @@ A Claude Code plugin for generating weekly analytics/martech newsletters with au
 ## Requirements
 
 - Node.js 18+
-- Serper API key (free tier available at [serper.dev](https://serper.dev))
 
 ## Installation
 
@@ -27,7 +26,7 @@ claude plugin marketplace add lucianfialho/newsletter-toolkit
 claude plugin install newsletter-toolkit@newsletter-toolkit
 ```
 
-You'll be prompted to configure each option (Serper API key, RSS feeds, CMS settings).
+You'll be prompted to configure each option (RSS feeds, CMS settings).
 
 Then install MCP server dependencies:
 
@@ -61,7 +60,7 @@ After installation, validate your setup:
 /newsletter-toolkit:setup
 ```
 
-This checks all config values, tests Serper and CMS connectivity, verifies Node.js and MCP server dependencies, and lists exactly what needs to be fixed.
+This checks all config values, tests CMS connectivity, verifies Node.js and MCP server dependencies, and lists exactly what needs to be fixed.
 
 To update any config value after installation:
 
@@ -71,7 +70,6 @@ To update any config value after installation:
 
 During installation you'll be prompted for:
 
-- `serper_api_key` — required for Meta Ads news search
 - `newsletter_feed_url` — RSS feed of your newsletter (for deduplication)
 - `podcast_feed_url` — RSS feed of your podcast (optional, integrated into digest)
 - `blog_feed_url` — RSS feed of your blog (optional)
@@ -155,7 +153,7 @@ The plugin bundles a lightweight MCP server (`newsletter-mcp`) that provides fou
 - `get_current_time` — temporal context for date filtering
 - `fetch_rss_feed` — parses RSS/Atom feeds
 - `scrape_web_page` — extracts main content from web pages
-- `serper_search` / `serper_news` — news and web search via Serper API
+- `WebSearch` (native Claude Code tool) — used by researchers without official changelogs
 
 The digest skill delegates to a coordinator agent that orchestrates five researcher agents in parallel, then aggregates, filters, and generates the final newsletter.
 

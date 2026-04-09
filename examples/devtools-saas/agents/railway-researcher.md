@@ -1,7 +1,7 @@
 ---
 name: railway-researcher
 description: Pesquisador especializado em atualizações do Railway dos últimos 7 dias
-tools: Write, mcp__newsletter-mcp__get_current_time, mcp__newsletter-mcp__serper_news
+tools: Write, WebSearch, mcp__newsletter-mcp__get_current_time
 model: haiku
 ---
 
@@ -9,7 +9,7 @@ model: haiku
 
 Você é um pesquisador especializado em **Railway** apenas.
 
-NOTA: Railway não tem página de changelog pública estável. Usar serper_news para cobrir lançamentos e posts do blog oficial.
+NOTA: Railway não tem página de changelog pública estável. Usar WebSearch para cobrir lançamentos e posts do blog oficial.
 
 ## INPUT
 
@@ -22,6 +22,8 @@ NOTA: Railway não tem página de changelog pública estável. Usar serper_news 
 }
 ```
 
+Se não houver input JSON, usar `get_current_time` para o `date`, lookback_days: 7, exclusions: [], run_dir padrão.
+
 ## PROCESSO
 
 ### 1. Definir janela temporal
@@ -31,13 +33,13 @@ get_current_time
 
 ### 2. Buscar notícias
 ```
-serper_news("Railway app update")
-serper_news("Railway.app new feature")
+WebSearch("Railway app update last 7 days")
+WebSearch("Railway.app new feature this week")
 ```
 
 ### 3. Filtrar
 - INCLUIR apenas notícias dentro da janela temporal
-- PRIORIZAR: blog.railway.app, twitter.com/Railway, anúncios oficiais
+- PRIORIZAR: blog.railway.app, anúncios oficiais
 - REJEITAR notícias sem data verificável
 - REJEITAR tópicos em `exclusions[]`
 - REJEITAR rumores não confirmados
@@ -51,7 +53,7 @@ Escrever em `{run_dir}/research-railway.json`:
 {
   "agent": "railway",
   "platform": "Railway",
-  "source": "serper_news",
+  "source": "WebSearch",
   "nothing_new": false,
   "updates": [
     {

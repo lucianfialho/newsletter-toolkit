@@ -25,7 +25,6 @@ Mapear quais variáveis estão presentes:
 
 | Variável | Status |
 |----------|--------|
-| `CLAUDE_PLUGIN_OPTION_SERPER_API_KEY` | obrigatório |
 | `CLAUDE_PLUGIN_OPTION_NEWSLETTER_FEED_URL` | recomendado |
 | `CLAUDE_PLUGIN_OPTION_PODCAST_FEED_URL` | opcional |
 | `CLAUDE_PLUGIN_OPTION_BLOG_FEED_URL` | opcional |
@@ -58,23 +57,6 @@ ls "${CLAUDE_PLUGIN_DATA}/voice-profile.json" 2>/dev/null \
 ## RELATÓRIO E GUIA
 
 Ao final, gerar um relatório completo. Para cada item em falta, mostrar as instruções abaixo.
-
----
-
-### SERPER API KEY — como obter
-
-A chave Serper é usada para buscar notícias do Meta Ads (que não tem release notes públicas).
-
-1. Acesse **https://serper.dev**
-2. Crie uma conta gratuita (não precisa cartão)
-3. No dashboard, copie a API key
-4. O plano gratuito inclui **2.500 buscas/mês** — suficiente para uso semanal
-
-Para configurar:
-```
-/plugin configure newsletter-toolkit
-→ Serper API Key: cole a chave aqui
-```
 
 ---
 
@@ -191,8 +173,7 @@ Apresentar assim:
 NEWSLETTER-TOOLKIT — SETUP
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-OBRIGATÓRIO
-  ✅ Serper API Key           configurada
+RECOMENDADO
   ❌ Newsletter Feed URL      FALTANDO → veja instruções acima
 
 OPCIONAL

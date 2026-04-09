@@ -11,7 +11,7 @@ Vercel, Supabase, Railway, GitHub, and Cloudflare Workers.
 | `supabase-researcher.md` | Supabase | https://supabase.com/changelog |
 | `github-researcher.md` | GitHub | https://github.blog/changelog |
 | `cloudflare-researcher.md` | Cloudflare Workers | https://developers.cloudflare.com/changelog |
-| `railway-researcher.md` | Railway | serper_news |
+| `railway-researcher.md` | Railway | WebSearch |
 
 ## Setup
 
@@ -35,7 +35,6 @@ Vercel, Supabase, Railway, GitHub, and Cloudflare Workers.
    ```
    /plugin configure newsletter-toolkit
    → Newsletter Feed URL: https://YOUR-NEWSLETTER.substack.com/feed
-   → Serper API Key: your-key (needed for Railway)
    ```
 
 ## Example output structure

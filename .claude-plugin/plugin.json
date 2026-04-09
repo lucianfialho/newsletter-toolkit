@@ -10,12 +10,6 @@
   "license": "MIT",
   "keywords": ["newsletter", "digest", "analytics", "content", "humanizer", "blog"],
   "userConfig": {
-    "serper_api_key": {
-      "title": "Serper API Key",
-      "description": "Chave da API Serper para buscar notícias (ex: Meta Ads). Cadastro gratuito em serper.dev — plano free inclui 2.500 buscas/mês. Após cadastrar, copie a API key do dashboard.",
-      "type": "string",
-      "sensitive": true
-    },
     "newsletter_feed_url": {
       "title": "Newsletter RSS Feed URL",
       "description": "URL do RSS feed da sua newsletter. Usado para evitar repetir temas já cobertos. Substack: https://SEU-USUARIO.substack.com/feed | Ghost: https://SEU-BLOG.com/rss/ | Pode deixar em branco e configurar depois.",

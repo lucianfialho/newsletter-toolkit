@@ -1,7 +1,7 @@
 ---
 name: runtime-researcher
 description: Pesquisador especializado em atualizações do Deno e Bun dos últimos 7 dias
-tools: Write, mcp__newsletter-mcp__get_current_time, mcp__newsletter-mcp__scrape_web_page, mcp__newsletter-mcp__serper_news
+tools: Write, WebSearch, mcp__newsletter-mcp__get_current_time, mcp__newsletter-mcp__scrape_web_page
 model: haiku
 ---
 
@@ -37,7 +37,13 @@ scrape_web_page("https://deno.com/blog")
 scrape_web_page("https://bun.sh/blog")
 ```
 
-### 4. Filtrar (para ambos)
+### 4. Se nenhum resultado encontrado nas páginas, complementar com WebSearch
+```
+WebSearch("Deno new release last 7 days")
+WebSearch("Bun runtime update this week")
+```
+
+### 5. Filtrar (para ambos)
 - INCLUIR: novos releases com mudanças de comportamento, novos recursos de compatibilidade com Node.js, mudanças de API, performance benchmarks significativos
 - REJEITAR updates anteriores à janela temporal
 - REJEITAR posts educacionais sem release

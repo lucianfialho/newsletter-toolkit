@@ -11,7 +11,7 @@ Next.js, React/Vite, Node.js, TypeScript, and Deno/Bun.
 | `react-vite-researcher.md` | React & Vite | GitHub releases |
 | `nodejs-researcher.md` | Node.js | https://nodejs.org/en/blog/release |
 | `typescript-researcher.md` | TypeScript | https://devblogs.microsoft.com/typescript |
-| `runtime-researcher.md` | Deno & Bun | serper_news |
+| `runtime-researcher.md` | Deno & Bun | scrape + WebSearch fallback |
 
 ## Setup
 
@@ -35,7 +35,6 @@ Next.js, React/Vite, Node.js, TypeScript, and Deno/Bun.
    ```
    /plugin configure newsletter-toolkit
    → Newsletter Feed URL: https://YOUR-NEWSLETTER.substack.com/feed
-   → Serper API Key: your-key (needed for Deno/Bun)
    ```
 
 ## Tone guidance
